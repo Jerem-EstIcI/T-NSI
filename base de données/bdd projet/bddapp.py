@@ -39,32 +39,29 @@ combo_realisateur.grid(row=0, column=1)
 def afficher_film_realisateur(event):
     # Obtenir le réalisateur sélectionné à partir de combo_realisateur
     realisateur_selectionner = combo_realisateur.get()
-    
-    # Vérifier si realisateur_selectionner contient à la fois un prénom et un nom
-    if ' ' in realisateur_selectionner:
-        # Diviser selected_realisateur en nom et prénom
-        nom, prenom = realisateur_selectionner.split()
-        
-        maBase = sqlite3.connect('box_office.db')
-        curseur = maBase.cursor()
-        
-        # Fournir les valeurs pour les espaces réservés (?, ?)
-        curseur.execute('''SELECT titre FROM film 
-                        JOIN est_realise_par ON est_realise_par.id_film = film.id_film
-                        JOIN realisateur ON est_realise_par.id_rea = realisateur.id_rea
-                        WHERE nom=? AND prenom=?''', (nom, prenom))
-        
-        # Récupérer les résultats et fermer la connexion à la base de données
-        liste = curseur.fetchall()
-        maBase.close()
-        
-        # Extraire les titres des films à partir des résultats de la requête
-        liste_film = [film[0] for film in liste]
-        
-        # Effacer et mettre à jour la liste des titres de films dans la listeBox
-        listeFilm.delete(0, tk.END)
-        for titre_film in liste_film:
-            listeFilm.insert(tk.END, titre_film)
+    # Diviser selected_realisateur en nom et prénom
+    nom, prenom = realisateur_selectionner.split()
+
+    maBase = sqlite3.connect('box_office.db')
+    curseur = maBase.cursor()
+
+    # Fournir les valeurs pour les espaces réservés (?, ?)
+    curseur.execute('''SELECT titre FROM film 
+                    JOIN est_realise_par ON est_realise_par.id_film = film.id_film
+                    JOIN realisateur ON est_realise_par.id_rea = realisateur.id_rea
+                    WHERE nom=? AND prenom=?''', (nom, prenom))
+
+    # Récupérer les résultats et fermer la connexion à la base de données
+    liste = curseur.fetchall()
+    maBase.close()
+
+    # Extraire les titres des films à partir des résultats de la requête
+    liste_film = [film[0] for film in liste]
+
+    # Effacer et mettre à jour la liste des titres de films dans la listeBox
+    listeFilm.delete(0, tk.END)
+    for titre_film in liste_film:
+        listeFilm.insert(tk.END, titre_film)
 
 #----------------------------------------------------------------------------------
 
