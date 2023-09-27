@@ -39,19 +39,20 @@ combo_realisateur.grid(row=0, column=1)
 def afficher_film_realisateur(event):
     # Obtenir le réalisateur sélectionné à partir de combo_realisateur
     realisateur_selectionner = combo_realisateur.get()
-    # Diviser selected_realisateur en nom et prénom
-    nom, prenom = realisateur_selectionner.split()
+    
+    # Diviser realisateur_selectionner en nom et prénom en utilisant la première occurrence d'un espace comme séparateur
+    parts = realisateur_selectionner.split(' ', 1)
+    nom = parts[0] if len(parts) > 0 else ''
+    prenom = parts[1] if len(parts) > 1 else ''
 
     maBase = sqlite3.connect('box_office.db')
     curseur = maBase.cursor()
 
-    # Fournir les valeurs pour les espaces réservés (?, ?)
     curseur.execute('''SELECT titre FROM film 
                     JOIN est_realise_par ON est_realise_par.id_film = film.id_film
                     JOIN realisateur ON est_realise_par.id_rea = realisateur.id_rea
                     WHERE nom=? AND prenom=?''', (nom, prenom))
 
-    # Récupérer les résultats et fermer la connexion à la base de données
     liste = curseur.fetchall()
     maBase.close()
 
@@ -67,7 +68,10 @@ def afficher_film_realisateur(event):
 
 def afficher_entree_film(event):
     realisateur_selectionner = combo_realisateur.get()
-    nom, prenom = realisateur_selectionner.split()
+
+    parts = realisateur_selectionner.split(' ', 1)
+    nom = parts[0] if len(parts) > 0 else ''
+    prenom = parts[1] if len(parts) > 1 else ''
 
     maBase = sqlite3.connect('box_office.db')
     curseur = maBase.cursor()
@@ -87,7 +91,10 @@ def afficher_entree_film(event):
 
 def afficher_annee_film(event):
     realisateur_selectionner = combo_realisateur.get()
-    nom, prenom = realisateur_selectionner.split()
+   
+    parts = realisateur_selectionner.split(' ', 1)
+    nom = parts[0] if len(parts) > 0 else ''
+    prenom = parts[1] if len(parts) > 1 else ''
 
     maBase = sqlite3.connect('box_office.db')
     curseur = maBase.cursor()
@@ -107,12 +114,14 @@ def afficher_annee_film(event):
 
 def afficher_nation_film(event):
     realisateur_selectionner = combo_realisateur.get()
-    nom, prenom = realisateur_selectionner.split()
+    
+    parts = realisateur_selectionner.split(' ', 1)
+    nom = parts[0] if len(parts) > 0 else ''
+    prenom = parts[1] if len(parts) > 1 else ''
 
     maBase = sqlite3.connect('box_office.db')
     curseur = maBase.cursor()
     
-    # Retrieve nationality information for movies associated with the director
     curseur.execute('''SELECT film.titre, GROUP_CONCAT(nationalite.nation, '/') FROM film
                     JOIN est_de_nationalite ON film.id_film = est_de_nationalite.id_film
                     JOIN est_realise_par ON est_de_nationalite.id_film = est_realise_par.id_film
@@ -134,16 +143,16 @@ var_tri = tk.StringVar()
 def trier():
     tri_par = var_tri.get()
     if tri_par == "titre":
-        # Implémentez la logique de tri par titre ici
+        # ?
         pass
     elif tri_par == "entrees":
-        # Implémentez la logique de tri par entrées ici
+        # ?
         pass
     elif tri_par == "annees":
-        # Implémentez la logique de tri par années ici
+        # ?
         pass
     elif tri_par == "nations":
-        # Implémentez la logique de tri par nationalités ici
+        # ?
         pass
 
 def decroissant():
@@ -184,18 +193,18 @@ listeNation.grid(row=2, column=4)
 label_films = tk.Label(bddApp, text="Trier par :")
 label_films.grid(row=3, column=0)
 
-bouton_tri_titre = ttk.Radiobutton(bddApp, text="Titre", variable=var_tri, value="titre")
+bouton_tri_titre = ttk.Radiobutton(bddApp, text="Titre", variable=trier, value="titre")
 bouton_tri_titre.grid(row=3, column=1)
 
-bouton_tri_entrees = ttk.Radiobutton(bddApp, text="Entree", variable=var_tri, value="entrees")
+bouton_tri_entrees = ttk.Radiobutton(bddApp, text="Entree", variable=trier, value="entrees")
 bouton_tri_entrees.grid(row=3, column=2)
 
-bouton_tri_annees = ttk.Radiobutton(bddApp, text="Année", variable=var_tri, value="annees")
+bouton_tri_annees = ttk.Radiobutton(bddApp, text="Année", variable=trier, value="annees")
 bouton_tri_annees.grid(row=3, column=3)
 
-bouton_tri_nation = ttk.Radiobutton(bddApp, text="Nation", variable=var_tri, value="nations")
+bouton_tri_nation = ttk.Radiobutton(bddApp, text="Nation", variable=trier, value="nations")
 bouton_tri_nation.grid(row=3, column=4)
-
+()
 bouton_decroissant = tk.BooleanVar()
 bouton_decroissant = tk.Checkbutton(bddApp, text="Décroissant", variable=bouton_decroissant, command=decroissant)
 bouton_decroissant.grid(row=3, column=5)
