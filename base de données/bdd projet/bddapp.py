@@ -138,26 +138,26 @@ def afficher_nation_film(event):
         listeNation.insert(tk.END, nationalites)
 
 #----------------------------------------------------------------------------------
-var_tri = tk.StringVar()
+#var_tri = tk.StringVar()
 
-def trier():
-    tri_par = var_tri.get()
-    if tri_par == "titre":
+#def trier():
+ #   tri_par = var_tri.get()
+    #if tri_par == "titre":
         # ?
-        pass
-    elif tri_par == "entrees":
+    #    pass
+    #elif tri_par == "entrees":
         # ?
-        pass
-    elif tri_par == "annees":
+    #    pass
+    #elif tri_par == "annees":
         # ?
-        pass
-    elif tri_par == "nations":
+    #    pass
+    #elif tri_par == "nations":
         # ?
-        pass
+    #    pass
 
-def decroissant():
+#def decroissant():
     # ?
-    pass
+#    pass
 
 #----------------------------------------------------------------------------------
 
@@ -193,20 +193,20 @@ listeNation.grid(row=2, column=4)
 label_films = tk.Label(bddApp, text="Trier par :")
 label_films.grid(row=3, column=0)
 
-bouton_tri_titre = ttk.Radiobutton(bddApp, text="Titre", variable=trier, value="titre")
+bouton_tri_titre = tk.Radiobutton(bddApp, text="Titre", value="titre") #variable=var_tri,
 bouton_tri_titre.grid(row=3, column=1)
 
-bouton_tri_entrees = ttk.Radiobutton(bddApp, text="Entree", variable=trier, value="entrees")
+bouton_tri_entrees = tk.Radiobutton(bddApp, text="Entree",value="entrees") #variable=var_tri,
 bouton_tri_entrees.grid(row=3, column=2)
 
-bouton_tri_annees = ttk.Radiobutton(bddApp, text="Année", variable=trier, value="annees")
+bouton_tri_annees = tk.Radiobutton(bddApp, text="Année",value="annees") #variable=var_tri,
 bouton_tri_annees.grid(row=3, column=3)
 
-bouton_tri_nation = ttk.Radiobutton(bddApp, text="Nation", variable=trier, value="nations")
+bouton_tri_nation = ttk.Radiobutton(bddApp, text="Nation",value="nations") #variable=var_tri,
 bouton_tri_nation.grid(row=3, column=4)
-()
+
 bouton_decroissant = tk.BooleanVar()
-bouton_decroissant = tk.Checkbutton(bddApp, text="Décroissant", variable=bouton_decroissant, command=decroissant)
+bouton_decroissant = tk.Checkbutton(bddApp, text="Décroissant",) #variable=bouton_decroissant, command=decroissant
 bouton_decroissant.grid(row=3, column=5)
 
 #----------------------------------------------------------------------------------
