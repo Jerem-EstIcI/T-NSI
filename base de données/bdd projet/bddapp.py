@@ -138,26 +138,76 @@ def afficher_nation_film(event):
         listeNation.insert(tk.END, nationalites)
 
 #----------------------------------------------------------------------------------
-#var_tri = tk.StringVar()
 
-#def trier():
- #   tri_par = var_tri.get()
-    #if tri_par == "titre":
-        # ?
-    #    pass
-    #elif tri_par == "entrees":
-        # ?
-    #    pass
-    #elif tri_par == "annees":
-        # ?
-    #    pass
-    #elif tri_par == "nations":
-        # ?
-    #    pass
+# Variables globales pour le tri
+tri_colonne = "titre"  # Colonne par défaut pour le tri
+tri_decroissant = False  # Tri par défaut en ordre ascendant
 
-#def decroissant():
-    # ?
-#    pass
+def mettre_a_jour_liste():
+
+    realisateur_selectionne = combo_realisateur.get()
+    parts = realisateur_selectionne.split(' ', 1)
+    nom = parts[0] if len(parts) > 0 else ''
+    prenom = parts[1] if len(parts) > 1 else ''
+
+    maBase = sqlite3.connect('box_office.db')
+    curseur = maBase.cursor()
+
+    # requête SQL pour récupérer les données triées
+    requete_mise_a_jour_sql = f'''SELECT film.titre, film.entree, film.annee,
+                        GROUP_CONCAT(nationalite.nation, '/') 
+                    FROM film
+                    JOIN est_de_nationalite ON film.id_film = est_de_nationalite.id_film
+                    JOIN est_realise_par ON est_de_nationalite.id_film = est_realise_par.id_film
+                    JOIN realisateur ON est_realise_par.id_rea = realisateur.id_rea
+                    JOIN nationalite ON est_de_nationalite.id_nation = nationalite.id_nation
+                    WHERE realisateur.nom=? AND realisateur.prenom=?
+                    GROUP BY film.titre
+                    ORDER BY {tri_colonne} {'DESC' if tri_decroissant else 'ASC'}'''
+
+    curseur.execute(requete_mise_a_jour_sql, (nom, prenom))
+    liste_films = curseur.fetchall()
+    maBase.close()
+
+    # effacer les listes actuelles
+    listeFilm.delete(0, tk.END)
+    listeEntrees.delete(0, tk.END)
+    listeAnnee.delete(0, tk.END)
+    listeNation.delete(0, tk.END)
+
+    # mise à jour les listes correspondantes
+    for film in liste_films:
+        listeFilm.insert(tk.END, film[0])
+        listeEntrees.insert(tk.END, film[1])
+        listeAnnee.insert(tk.END, film[2])
+        listeNation.insert(tk.END, film[3])
+
+
+def activer_tri_decroissant():
+    global tri_decroissant
+    tri_decroissant = not tri_decroissant
+    mettre_a_jour_liste()
+
+def trier_par_titre():
+
+    global tri_colonne
+    tri_colonne = "titre"
+    mettre_a_jour_liste()
+
+def trier_par_entrees():
+    global tri_colonne
+    tri_colonne = "entree"
+    mettre_a_jour_liste()
+
+def trier_par_annees():
+    global tri_colonne
+    tri_colonne = "annee"
+    mettre_a_jour_liste()
+
+def trier_par_nations():
+    global tri_colonne
+    tri_colonne = "nation"
+    mettre_a_jour_liste()
 
 #----------------------------------------------------------------------------------
 
@@ -195,19 +245,24 @@ label_films.grid(row=3, column=0)
 
 bouton_tri_titre = tk.Radiobutton(bddApp, text="Titre", value="titre") #variable=var_tri,
 bouton_tri_titre.grid(row=3, column=1)
+bouton_tri_titre.config(command=trier_par_titre)
 
 bouton_tri_entrees = tk.Radiobutton(bddApp, text="Entree",value="entrees") #variable=var_tri,
 bouton_tri_entrees.grid(row=3, column=2)
+bouton_tri_entrees.config(command=trier_par_entrees)
 
 bouton_tri_annees = tk.Radiobutton(bddApp, text="Année",value="annees") #variable=var_tri,
 bouton_tri_annees.grid(row=3, column=3)
+bouton_tri_annees.config(command=trier_par_annees)
 
-bouton_tri_nation = ttk.Radiobutton(bddApp, text="Nation",value="nations") #variable=var_tri,
+bouton_tri_nation = tk.Radiobutton(bddApp, text="Nation",value="nations") #variable=var_tri,
 bouton_tri_nation.grid(row=3, column=4)
+bouton_tri_nation.config(command=trier_par_nations)
 
 bouton_decroissant = tk.BooleanVar()
 bouton_decroissant = tk.Checkbutton(bddApp, text="Décroissant",) #variable=bouton_decroissant, command=decroissant
 bouton_decroissant.grid(row=3, column=5)
+bouton_decroissant.config(command=activer_tri_decroissant)
 
 #----------------------------------------------------------------------------------
 
@@ -221,5 +276,6 @@ def affichage_table(event):
 # A chaque fois qu'on sélectionne un autre item de la comboBox, la méthode afficher_film_realisateur est appelée
 combo_realisateur.bind("<<ComboboxSelected>>", affichage_table)
 
+#----------------------------------------------------------------------------------
 
 bddApp.mainloop()
