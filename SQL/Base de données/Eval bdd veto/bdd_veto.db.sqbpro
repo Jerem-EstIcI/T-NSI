@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/ordi2121384/Downloads/bdd_veto.db" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><current_tab id="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="150"/><column_width id="3" width="1171"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="Animaux"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">Select * from Animaux;</sql><sql name="SQL 2">Select count(*) From Animaux;</sql><sql name="SQL 3">Select surnom From Animaux
+where idE=1;</sql><sql name="SQL 4">Insert Into Especes VALUES(4,'tortue');</sql><sql name="SQL 5">Update Especes Set espece='chien'
+where idE=2;</sql><sql name="SQL 6">Select idE From Especes
+where espece='tortue';</sql><sql name="SQL 7">Insert Into Animaux 
+VALUES(7,'rapido',(Select idE From Especes Where espece='tortue'));</sql><sql name="SQL 8">Insert into Possede
+VALUES((Select idP From Proprietaires Where nom='Pierre'),(Select idA From Animaux where surnom='rapido'));</sql><sql name="SQL 9">Select surnom,espece From Animaux
+Join Especes on Animaux.idE=Especes.idE;</sql><sql name="SQL 10">Select surnom,espece From Animaux
+Join Especes on Animaux.idE=Especes.idE
+Order by espece ASC,surnom DESC;</sql><sql name="SQL 11">SELECT surnom From Animaux
+Join  Possede on Animaux.idA=Possede.idA
+Join  Proprietaires on Possede.idP =Proprietaires.idP 
+where nom='Propre' or nom='Castex';</sql><sql name="SQL 12">SELECT nom,prenom From Proprietaires
+Join  Possede on Proprietaires.idP =Possede.idP 
+Join  Animaux on Possede.idA=Animaux.idA
+where surnom='minou';</sql><sql name="SQL 13">Select nom,prenom,surnom,espece from Animaux
+Join  Possede on Animaux.idA=Possede.idA
+Join  Especes on Animaux.idE=Especes.idE
+Join  Proprietaires on Possede.idP =Proprietaires.idP
+order by nom ASC,espece ASC LIMIT 8;
+</sql><sql name="SQL 14">DELETE FROM Proprietaires
+where nom='Triste';</sql><sql name="SQL 15">DELETE FROM Possede
+WHERE idP IN (SELECT idP FROM Proprietaires WHERE nom = 'Castex');
+
+DELETE FROM Proprietaires
+WHERE nom = 'Castex';
+
+
+</sql><current_tab id="14"/></tab_sql></sqlb_project>
