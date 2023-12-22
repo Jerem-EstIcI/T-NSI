@@ -17,4 +17,3 @@ for routeur in reseau.liste_routeurs():
     print(routeur)
     for voisin in reseau.voisins(routeur):
         print(voisin)
-
