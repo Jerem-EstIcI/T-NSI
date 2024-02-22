@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_4eb83d63cc07fed5eaae08bf93929c40 {
+                    position: relative;
+                    width: 1000.0px;
+                    height: 500.0px;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_4eb83d63cc07fed5eaae08bf93929c40" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_4eb83d63cc07fed5eaae08bf93929c40 = L.map(
+                "map_4eb83d63cc07fed5eaae08bf93929c40",
+                {
+                    center: [-44.8494, 176.1352],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 1,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_8fc6bac0ffc7db1550cd21e3c9455ec9 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_8fc6bac0ffc7db1550cd21e3c9455ec9.addTo(map_4eb83d63cc07fed5eaae08bf93929c40);
+        
+    
+            var circle_marker_f197787bc485bf521f29d72b03413f39 = L.circleMarker(
+                [-44.8494, 176.1352],
+                {"bubblingMouseEvents": true, "color": "#000000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_4eb83d63cc07fed5eaae08bf93929c40);
+        
+    
+        var popup_4a1b7626a8894432e83351808dac21d0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_dd7ddd485c4b6ec06921f18ffd702d45 = $(`<div id="html_dd7ddd485c4b6ec06921f18ffd702d45" style="width: 100.0%; height: 100.0%;"><p style='text-align:center;width:150px'>ISS<br>Latitude : -44.8494<br>Longitude : 176.1352</p><ul><li>Jasmin Moghbeli</li><li>Andreas Mogensen</li><li>Satoshi Furukawa</li><li>Konstantin Borisov</li><li>Oleg Kononenko</li><li>Nikolai Chub</li><li>Loral O'Hara</li></ul></div>`)[0];
+                popup_4a1b7626a8894432e83351808dac21d0.setContent(html_dd7ddd485c4b6ec06921f18ffd702d45);
+            
+        
+
+        circle_marker_f197787bc485bf521f29d72b03413f39.bindPopup(popup_4a1b7626a8894432e83351808dac21d0)
+        ;
+
+        
+    
+</script>
+</html>
